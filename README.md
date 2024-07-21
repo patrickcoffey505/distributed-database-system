@@ -2,6 +2,8 @@
 
 This library includes a simple key-value store library implemented in C, along with a benchmarking tool to measure read and write performance. It also provides a Python script to visualize the benchmark results.
 
+Benchmark results can be found [here](analysis/README.md#benchmark-results)
+
 ## Directory Structure
 
 ```plaintext
