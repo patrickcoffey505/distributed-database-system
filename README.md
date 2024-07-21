@@ -4,6 +4,7 @@ This library includes a simple key-value store library implemented in C, along w
 
 ## Directory Structure
 
+```plaintext
 distributed-database-system/
 ├── analysis/
 │   ├── graph-benchmark-data.py
@@ -18,6 +19,7 @@ distributed-database-system/
 │       └── Makefile
 ├── Makefile
 └── README.md
+```
 
 ## Getting Started
 
