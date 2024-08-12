@@ -1,24 +1,39 @@
 # distributed-database-system
 
-This library includes a simple key-value store library implemented in C, along with a benchmarking tool to measure read and write performance. It also provides a Python script to visualize the benchmark results.
+This project creates a server protocol and basic server that stores a simple key-value database implemented in C. It also includes a client library and a basic client that can connect to the server.
 
-Benchmark results can be found [here](analysis/README.md#benchmark-results)
+The key-value library has benchmarks for read and write times (currently broken). The server also is benchmarked for reads. The benchmarking analysis is implemented in python.
 
 ## Directory Structure
 
 ```plaintext
 distributed-database-system/
-├── analysis/
-│   ├── graph-benchmark-data.py
-|   └── README.md
 ├── benchmark/
-│   └── main.c
+│   ├── benchmark.c
+│   ├── graph-read-benchmarks.py
+│   ├── Makefile
+|   └── README.md
 ├── lib/
 │   └── kvstore/
+│       ├── benchmark/
+│       |   ├── benchmark.c
+│       |   └── graph-benchmark-data.py
 │       ├── src/
 │       |   ├── kvstore.c
 │       |   └── kvstore.h
-│       └── Makefile
+│       ├── Makefile
+│       └── README.md
+├── src/
+│   ├── client/
+│   |   ├── client_lib.c
+│   |   ├── client_lib.h
+│   |   ├── client.c
+│   |   └── Makefile
+│   └── server/
+│       ├── Makefile
+│       ├── protocol.c
+│       ├── protocol.h
+│       └── server.c
 ├── Makefile
 └── README.md
 ```
@@ -33,12 +48,22 @@ distributed-database-system/
 1. Navigate to the root directory
 2. Run the following command: `make`
 
-### Running the Benchmarks
-After building the project:
-1. Navigate to the root directory
-2. Run the executable: `./bin/benchmark`
-
 ### Cleaning the Project
 To remove all executables:
 1. Navigate to the root directory
 2. Run the following command: `make clean`
+
+## Running the Benchmarks
+
+### Prerequisites
+- Python 3 with pip
+- matplotlib: `pip install matplotlib`
+
+After building the project:
+1. Navigate to the root directory
+2. Run the executable: `./bin/benchmark`
+3. Run `python benchmark/graph-read-benchmarks.py`
+
+### Benchmark Results
+
+![Total Read Time vs Number of Requests graph](benchmark/read-benchmarks.png)

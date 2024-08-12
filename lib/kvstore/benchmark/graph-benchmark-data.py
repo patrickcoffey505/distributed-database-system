@@ -31,8 +31,8 @@ def main():
     read_times_ms = np.array(read_times) / 1000
 
     # Plot and save graphs
-    plot_times(write_times_ms, 'Write Operation Times (First 1000)', 'analysis/write_times.png')
-    plot_times(read_times_ms, 'Read Operation Times (First 1000)', 'analysis/read_times.png')
+    plot_times(write_times_ms, 'Write Operation Times (First 1000)', 'lib/kvstore/benchmark/write_times.png')
+    plot_times(read_times_ms, 'Read Operation Times (First 1000)', 'lib/kvstore/benchmark/read_times.png')
 
 if __name__ == '__main__':
     main()
