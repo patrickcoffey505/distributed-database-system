@@ -1,5 +1,6 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -g
+CFLAGS = -Wall -Wextra -g -I/opt/homebrew/Cellar/xxhash/0.8.2/include
+LDFLAGS = -L/opt/homebrew/Cellar/xxhash/0.8.2/lib -lxxhash
 
 SRC_DIR = .
 OBJ_DIR = ../../obj
@@ -14,7 +15,7 @@ EXEC = $(BIN_DIR)/client
 all: $(EXEC)
 
 $(EXEC): $(OBJ) | $(BIN_DIR)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
