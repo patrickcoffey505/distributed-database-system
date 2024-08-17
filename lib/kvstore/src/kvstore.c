@@ -76,7 +76,6 @@ void fsync_log(int log_fd) {
     }
 }
 
-
 void log_entry(int log_fd, const char *key, const char *value) {
     uint32_t key_len = strlen(key) + 1;
     uint32_t value_len = strlen(value) + 1;

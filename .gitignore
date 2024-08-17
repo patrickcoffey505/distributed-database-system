@@ -1,6 +1,7 @@
 # data files
 _benchmark_data/
 *.log
+*.json
 
 # vscode build
 .vscode/
