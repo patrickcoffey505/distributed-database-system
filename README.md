@@ -89,4 +89,4 @@ Note: You may have to make some tweaks to the benchmark/stats.json file. Verify 
 
 ### Benchmark Results
 
-![read/write time vs. number of servers (full replication)](benchmark/graph-benchmarks.png)
+![read/write time vs. number of servers (full replication)](benchmark/benchmarks.png)
