@@ -40,12 +40,23 @@ void handle_contains(const char *key, int client_socket, KeyValue **kv_store) {
     send(client_socket, response, strlen(response), 0);
 }
 
-void handle_request(const char *request, int client_socket, KeyValue **kv_store, int log_fd) {
+void handle_shutdown(int client_socket, KeyValue **kvstore, int log_fd, int server_fd) {
+    send(client_socket, "Server is shutting down...\n", strlen("Server is shutting down...\n"), 0);
+    close(client_socket);
+    printf("Client disconnected\n");
+    printf("Server is shutting down...\n");
+    free_table(kvstore);
+    close(log_fd);
+    close(server_fd);
+    exit(EXIT_SUCCESS);
+}
+
+void handle_request(const char *request, int client_socket, KeyValue **kv_store, int log_fd, int server_fd) {
     char command[BUFFER_SIZE];
     char key[KEY_SIZE];
     char value[VALUE_SIZE];
 
-    if (sscanf(request, "%s %63s %63s", command, key, value) < 2) {
+    if (sscanf(request, "%s %63s %63s", command, key, value) < 1) {
         const char *error_response = "ERROR Invalid command\n";
         send(client_socket, error_response, strlen(error_response), 0);
         return;
@@ -57,6 +68,8 @@ void handle_request(const char *request, int client_socket, KeyValue **kv_store,
         handle_put(key, value, client_socket, kv_store, log_fd);
     } else if (strcmp(command, "CONTAINS") == 0) {
         handle_contains(key, client_socket, kv_store);
+    } else if (strcmp(command, "SHUTDOWN") == 0) {
+        handle_shutdown(client_socket, kv_store, log_fd, server_fd);
     } else {
         const char *error_response = "ERROR Unknown command\n";
         send(client_socket, error_response, strlen(error_response), 0);

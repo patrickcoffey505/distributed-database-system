@@ -7,9 +7,9 @@
 #include <arpa/inet.h>
 #include <errno.h>
 
-#define LOG_FILE "db.log"
 #define REQUEST_QUEUE_SIZE 5
 #define BUFFER_SIZE 256
+#define MAX_LOG_FILENAME 30
 
 static KeyValue** kv_store;
 
@@ -21,6 +21,9 @@ void start_server(const char* ip, int port) {
     
     // Initialization
     kv_store = create_table();
+
+    char LOG_FILE[MAX_LOG_FILENAME];
+    snprintf(LOG_FILE, MAX_LOG_FILENAME, "log/%s.%d.log", ip, port);
     
     int log_fd = open(LOG_FILE, O_CREAT | O_RDWR | O_APPEND, S_IRUSR | S_IWUSR);
     if (log_fd == -1) {
@@ -66,7 +69,7 @@ void start_server(const char* ip, int port) {
             
             if (bytes_received > 0) {
                 buffer[bytes_received] = '\0';
-                handle_request(buffer, client_socket, kv_store, log_fd);
+                handle_request(buffer, client_socket, kv_store, log_fd, server_fd);
             } else if (bytes_received == 0) {
                 break;
             } else {
